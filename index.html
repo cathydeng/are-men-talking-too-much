@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Are men talking too much?</title>
+    <meta name="description" content="Quantify how dude-dominated a conversation is.">
+    <meta name="author" content="Cathy Deng">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet" type="text/css" media="all">
+    <script
+      src="https://code.jquery.com/jquery-1.12.4.min.js"
+      integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+      crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+
+        dude_time = {
+          minutes: 0,
+          seconds: 0
+        }
+        lady_time = {
+          minutes: 0,
+          seconds: 0
+        }
+        dude_active = false
+        lady_active = false
+
+        function add(tally, display_sel) {
+          tally.seconds++
+          if (tally.seconds >= 60){
+            tally.minutes++
+            tally.seconds = 0
+          }
+
+          $(display_sel).html(tally.minutes+':'+tally.seconds)
+        }
+
+        function tally_dude() {
+          add(dude_time, '#dude-display')
+        }
+        function tally_lady() {
+          add(lady_time, '#not-dude-display')
+        }
+
+        $('#dude').click( function(){
+          if(dude_active){
+            dude_active = false;
+            clearInterval(dude_t)
+          } else {
+            dude_active = true;
+            if(lady_active){
+              lady_active = false
+              clearInterval(lady_t)
+            }
+            dude_t = setInterval(tally_dude, 1000)
+          }
+        });
+
+        $('#not-dude').click( function(){
+
+          if(lady_active){
+            lady_active = false;
+            clearInterval(lady_t)
+          } else {
+            lady_active = true;
+            if(dude_active){
+              dude_active = false
+              clearInterval(dude_t)
+            }
+            lady_t = setInterval(tally_lady, 1000)
+          }
+        });
+
+      });
+
+    </script>
+
+  </head>
+
+  <body>
+
+    <div class="content">
+        <div class="row-fluid">
+
+
+            <div class="col-xs-8 col-xs-offset-2">
+              <h1>time who's dominating the conversation</h1>
+              <hr/>
+
+              <h2>who's talking?</h2>
+
+              <div class="row-fluid">
+                <div class="col-xs-6">
+                  <a class="btn btn-lg btn-default" id="dude">a dude</a>
+                  <p id="dude-display">00:00</p>
+                </div>
+                <div class="col-xs-6">
+                  <a class="btn btn-lg btn-default" id="not-dude">not a dude</a>
+                  <p id="not-dude-display">00:00</p>
+                </div>
+              </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+  </body>
+
+</html>
