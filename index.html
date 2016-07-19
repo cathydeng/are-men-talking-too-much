@@ -1,145 +1,126 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Are men talking too much?</title>
-    <meta name="description" content="Quantify how dude-dominated a conversation is.">
-    <meta name="author" content="Cathy Deng">
-
-    <!-- Enable responsive viewport -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <!-- Le styles -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/custom.css" rel="stylesheet" type="text/css" media="all">
-    <script src="/js/jquery-1.12.4.min.js"></script>
-
-  </head>
-
-  <body>
-
-    <div class="content">
-        <div class="row-fluid">
+---
+layout: default
+title: Are men talking too much?
+---
 
 
-            <div class="col-sm-8 col-sm-offset-2 center">
-              <br/>
-              <h3><span class="highlight">check who's dominating the conversation</span></h3>
-              <br/>
+<body>
+  <div class="content">
+      <div class="row-fluid">
 
-              <h1>who's talking?</h1>
 
-              <div class="row-fluid" id="button-div">
-                <div class="col-xs-6">
-                  <a class="btn btn-lg btn-default" id="dude">a dude</a>
-                  <p id="dude-display">00:00</p>
-                </div>
-                <div class="col-xs-6">
-                  <a class="btn btn-lg btn-default" id="not-dude">not a dude</a>
-                  <p id="not-dude-display">00:00</p>
-                </div>
+          <div class="col-sm-8 col-sm-offset-2 center">
+            <br/>
+            <h3><span class="highlight">check who's dominating the conversation</span></h3>
+            <br/>
+
+            <h1>who's talking?</h1>
+
+            <div class="row-fluid" id="button-div">
+              <div class="col-xs-6">
+                <a class="btn btn-lg btn-default" id="dude">a dude</a>
+                <p id="dude-display">00:00</p>
               </div>
-
-
+              <div class="col-xs-6">
+                <a class="btn btn-lg btn-default" id="not-dude">not a dude</a>
+                <p id="not-dude-display">00:00</p>
+              </div>
             </div>
-        </div>
-    </div>
+
+
+          </div>
+      </div>
+  </div>
 
   </body>
 
   <script type="text/javascript">
-      $(document).ready(function(){
+    $(document).ready(function(){
 
-        dude_time = {
-          minutes: 0,
-          seconds: 0,
-          hours: 0
-        }
-        lady_time = {
-          minutes: 0,
-          seconds: 0,
-          hours: 0
-        }
-        dude_active = false
-        lady_active = false
+      dude_time = {
+        minutes: 0,
+        seconds: 0,
+        hours: 0
+      }
+      lady_time = {
+        minutes: 0,
+        seconds: 0,
+        hours: 0
+      }
+      dude_active = false
+      lady_active = false
 
-        function add(tally, display_sel) {
-          tally.seconds++
-          if (tally.seconds >= 60){
-            tally.minutes++;
-            tally.seconds = 0;
-          };
-          if (tally.minutes >= 60){
-            tally.hours++;
-            tally.minutes = 0;
-          };
-
-          if (tally.hours){
-            $(display_sel).html(num_pad(tally.hours)+':'+num_pad(tally.minutes)+':'+num_pad(tally.seconds));
-          } else {
-            $(display_sel).html(num_pad(tally.minutes)+':'+num_pad(tally.seconds));
-          }
+      function add(tally, display_sel) {
+        tally.seconds++
+        if (tally.seconds >= 60){
+          tally.minutes++;
+          tally.seconds = 0;
         };
-        function num_pad(num) {
-          if(num<10){
-            return '0'+num
-          } else {
-            return num
-          };
+        if (tally.minutes >= 60){
+          tally.hours++;
+          tally.minutes = 0;
         };
 
-        function tally_dude() {
-          add(dude_time, '#dude-display')
+        if (tally.hours){
+          $(display_sel).html(num_pad(tally.hours)+':'+num_pad(tally.minutes)+':'+num_pad(tally.seconds));
+        } else {
+          $(display_sel).html(num_pad(tally.minutes)+':'+num_pad(tally.seconds));
         }
-        function tally_lady() {
-          add(lady_time, '#not-dude-display')
-        }
-        var $dude = $('#dude');
-        var $not_dude = $('#not-dude')
+      };
+      function num_pad(num) {
+        if(num<10){
+          return '0'+num
+        } else {
+          return num
+        };
+      };
 
-        $dude.click( function(){
+      function tally_dude() {
+        add(dude_time, '#dude-display')
+      }
+      function tally_lady() {
+        add(lady_time, '#not-dude-display')
+      }
+      var $dude = $('#dude');
+      var $not_dude = $('#not-dude')
 
-          $dude.toggleClass('pressed')
+      $dude.click( function(){
 
-          if(dude_active){
-            dude_active = false;
-            clearInterval(dude_t)
-          } else {
-            dude_active = true;
-            if(lady_active){
-              $not_dude.toggleClass('pressed')
-              lady_active = false
-              clearInterval(lady_t)
-            }
-            dude_t = setInterval(tally_dude, 1000)
-          }
-        });
+        $dude.toggleClass('pressed')
 
-        $not_dude.click( function(){
-
-          $not_dude.toggleClass('pressed')
-
+        if(dude_active){
+          dude_active = false;
+          clearInterval(dude_t)
+        } else {
+          dude_active = true;
           if(lady_active){
-            lady_active = false;
+            $not_dude.toggleClass('pressed')
+            lady_active = false
             clearInterval(lady_t)
-          } else {
-            lady_active = true;
-            if(dude_active){
-              $dude.toggleClass('pressed')
-              dude_active = false
-              clearInterval(dude_t)
-            }
-            lady_t = setInterval(tally_lady, 1000)
           }
-        });
-
+          dude_t = setInterval(tally_dude, 1000)
+        }
       });
 
-    </script>
+      $not_dude.click( function(){
 
-</html>
+        $not_dude.toggleClass('pressed')
+
+        if(lady_active){
+          lady_active = false;
+          clearInterval(lady_t)
+        } else {
+          lady_active = true;
+          if(dude_active){
+            $dude.toggleClass('pressed')
+            dude_active = false
+            clearInterval(dude_t)
+          }
+          lady_t = setInterval(tally_lady, 1000)
+        }
+      });
+
+    });
+
+  </script>
+</body>
