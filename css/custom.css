@@ -1,0 +1,46 @@
+body {
+	font-family: "Futura", "Helvetica", sans-serif;
+}
+
+
+.center {
+	text-align: center;
+}
+
+.highlight {
+	background-color: #E4F518;
+	font-style: italic;
+}
+
+#dude-display, #not-dude-display {
+	font-size: 32px;
+	font-family: "Courier", sans-serif;
+}
+
+#button-div {
+	max-width: 360px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.btn-default {
+	width: 110px;
+	height: 110px;
+	border-radius: 50%;
+	padding: 40px 0px 0px 0px;
+	border: none;
+	background-color: #d8e2dc;
+	box-shadow: 0 10px #777;
+	margin-bottom: 10px;
+}
+.btn-default:hover, .btn-default:active {
+	background-color: #d8e2dc;
+	box-shadow: 0 7px #777;
+	margin-top: 3px;
+	margin-bottom: 7px;
+}
+.btn-default.pressed {
+	background-color: #BBC2BE;
+	box-shadow: none;
+	margin-top: 10px;
+	margin-bottom: 0px;
+}

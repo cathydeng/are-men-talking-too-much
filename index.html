@@ -17,74 +17,7 @@
     <!-- Le styles -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/custom.css" rel="stylesheet" type="text/css" media="all">
-    <script
-      src="https://code.jquery.com/jquery-1.12.4.min.js"
-      integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
-      crossorigin="anonymous"></script>
-
-    <script type="text/javascript">
-      $(document).ready(function(){
-
-        dude_time = {
-          minutes: 0,
-          seconds: 0
-        }
-        lady_time = {
-          minutes: 0,
-          seconds: 0
-        }
-        dude_active = false
-        lady_active = false
-
-        function add(tally, display_sel) {
-          tally.seconds++
-          if (tally.seconds >= 60){
-            tally.minutes++
-            tally.seconds = 0
-          }
-
-          $(display_sel).html(tally.minutes+':'+tally.seconds)
-        }
-
-        function tally_dude() {
-          add(dude_time, '#dude-display')
-        }
-        function tally_lady() {
-          add(lady_time, '#not-dude-display')
-        }
-
-        $('#dude').click( function(){
-          if(dude_active){
-            dude_active = false;
-            clearInterval(dude_t)
-          } else {
-            dude_active = true;
-            if(lady_active){
-              lady_active = false
-              clearInterval(lady_t)
-            }
-            dude_t = setInterval(tally_dude, 1000)
-          }
-        });
-
-        $('#not-dude').click( function(){
-
-          if(lady_active){
-            lady_active = false;
-            clearInterval(lady_t)
-          } else {
-            lady_active = true;
-            if(dude_active){
-              dude_active = false
-              clearInterval(dude_t)
-            }
-            lady_t = setInterval(tally_lady, 1000)
-          }
-        });
-
-      });
-
-    </script>
+    <script src="/js/jquery-1.12.4.min.js"></script>
 
   </head>
 
@@ -94,13 +27,14 @@
         <div class="row-fluid">
 
 
-            <div class="col-xs-8 col-xs-offset-2">
-              <h1>time who's dominating the conversation</h1>
-              <hr/>
+            <div class="col-sm-8 col-sm-offset-2 center">
+              <br/>
+              <h3><span class="highlight">check who's dominating the conversation</span></h3>
+              <br/>
 
-              <h2>who's talking?</h2>
+              <h1>who's talking?</h1>
 
-              <div class="row-fluid">
+              <div class="row-fluid" id="button-div">
                 <div class="col-xs-6">
                   <a class="btn btn-lg btn-default" id="dude">a dude</a>
                   <p id="dude-display">00:00</p>
@@ -112,11 +46,100 @@
               </div>
 
 
-
             </div>
         </div>
     </div>
 
   </body>
+
+  <script type="text/javascript">
+      $(document).ready(function(){
+
+        dude_time = {
+          minutes: 0,
+          seconds: 0,
+          hours: 0
+        }
+        lady_time = {
+          minutes: 0,
+          seconds: 0,
+          hours: 0
+        }
+        dude_active = false
+        lady_active = false
+
+        function add(tally, display_sel) {
+          tally.seconds++
+          if (tally.seconds >= 60){
+            tally.minutes++;
+            tally.seconds = 0;
+          };
+          if (tally.minutes >= 60){
+            tally.hours++;
+            tally.minutes = 0;
+          };
+
+          if (tally.hours){
+            $(display_sel).html(num_pad(tally.hours)+':'+num_pad(tally.minutes)+':'+num_pad(tally.seconds));
+          } else {
+            $(display_sel).html(num_pad(tally.minutes)+':'+num_pad(tally.seconds));
+          }
+        };
+        function num_pad(num) {
+          if(num<10){
+            return '0'+num
+          } else {
+            return num
+          };
+        };
+
+        function tally_dude() {
+          add(dude_time, '#dude-display')
+        }
+        function tally_lady() {
+          add(lady_time, '#not-dude-display')
+        }
+        var $dude = $('#dude');
+        var $not_dude = $('#not-dude')
+
+        $dude.click( function(){
+
+          $dude.toggleClass('pressed')
+
+          if(dude_active){
+            dude_active = false;
+            clearInterval(dude_t)
+          } else {
+            dude_active = true;
+            if(lady_active){
+              $not_dude.toggleClass('pressed')
+              lady_active = false
+              clearInterval(lady_t)
+            }
+            dude_t = setInterval(tally_dude, 1000)
+          }
+        });
+
+        $not_dude.click( function(){
+
+          $not_dude.toggleClass('pressed')
+
+          if(lady_active){
+            lady_active = false;
+            clearInterval(lady_t)
+          } else {
+            lady_active = true;
+            if(dude_active){
+              $dude.toggleClass('pressed')
+              dude_active = false
+              clearInterval(dude_t)
+            }
+            lady_t = setInterval(tally_lady, 1000)
+          }
+        });
+
+      });
+
+    </script>
 
 </html>
