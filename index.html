@@ -11,10 +11,11 @@ title: Are men talking too much?
 
           <div class="col-sm-8 col-sm-offset-2 center">
             <br/>
-            <h3><span class="highlight">check who's dominating the conversation</span></h3>
+            <h3><span class="highlight"><i>check who's dominating the conversation</i></span></h3>
             <br/>
 
             <h1>who's talking?</h1>
+            <p id="ans">&nbsp;</p>
 
             <div class="row-fluid" id="button-div">
               <div class="col-xs-6">
@@ -26,6 +27,10 @@ title: Are men talking too much?
                 <p id="not-dude-display">00:00</p>
               </div>
             </div>
+            <div class="clearfix"></div>
+
+            <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            <p class="small"><a class="muted-link" href="https://github.com/cathydeng/are-men-talking-too-much">made with ♡ by Cathy Deng</a></p>
 
 
           </div>
@@ -50,6 +55,8 @@ title: Are men talking too much?
       dude_active = false
       lady_active = false
 
+      var $ans = $('#ans');
+
       function add(tally, display_sel) {
         tally.seconds++
         if (tally.seconds >= 60){
@@ -66,6 +73,13 @@ title: Are men talking too much?
         } else {
           $(display_sel).html(num_pad(tally.minutes)+':'+num_pad(tally.seconds));
         }
+
+        var d_tot = dude_time.hours*3600+dude_time.minutes*60+dude_time.seconds
+        var l_tot = lady_time.hours*3600+lady_time.minutes*60+lady_time.seconds
+        var pct = parseInt(d_tot/(d_tot+l_tot)*100)
+        $('#ans').html('<span id="pct">'+pct+'</span>% men')
+
+
       };
       function num_pad(num) {
         if(num<10){

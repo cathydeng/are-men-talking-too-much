@@ -9,11 +9,16 @@ body {
 
 .highlight {
 	background-color: #E4F518;
-	font-style: italic;
+}
+a.muted-link, a.muted-link:active, a.muted-link:hover {
+	text-decoration: underline;
+	text-decoration-style: dotted;
+	color: #BBC2BE;
 }
 
+
 #dude-display, #not-dude-display {
-	font-size: 32px;
+	font-size: 24px;
 	font-family: "Courier", sans-serif;
 }
 
@@ -44,3 +49,10 @@ body {
 	margin-top: 10px;
 	margin-bottom: 0px;
 }
+
+#ans {
+	font-size: 24px;
+	font-family: "Courier", sans-serif;
+	color: #BBC2BE;
+}
+
