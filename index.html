@@ -47,13 +47,13 @@ title: Are men talking too much?
         seconds: 0,
         hours: 0
       }
-      lady_time = {
+      not_dude_time = {
         minutes: 0,
         seconds: 0,
         hours: 0
       }
       dude_active = false
-      lady_active = false
+      not_dude_active = false
 
       var $ans = $('#ans');
 
@@ -75,7 +75,7 @@ title: Are men talking too much?
         }
 
         var d_tot = dude_time.hours*3600+dude_time.minutes*60+dude_time.seconds
-        var l_tot = lady_time.hours*3600+lady_time.minutes*60+lady_time.seconds
+        var l_tot = not_dude_time.hours*3600+not_dude_time.minutes*60+not_dude_time.seconds
         var pct = parseInt(d_tot/(d_tot+l_tot)*100)
         $('#ans').html('<span id="pct">'+pct+'</span>% men')
 
@@ -92,8 +92,8 @@ title: Are men talking too much?
       function tally_dude() {
         add(dude_time, '#dude-display')
       }
-      function tally_lady() {
-        add(lady_time, '#not-dude-display')
+      function tally_not_dude() {
+        add(not_dude_time, '#not-dude-display')
       }
       var $dude = $('#dude');
       var $not_dude = $('#not-dude')
@@ -107,10 +107,10 @@ title: Are men talking too much?
           clearInterval(dude_t)
         } else {
           dude_active = true;
-          if(lady_active){
+          if(not_dude_active){
             $not_dude.toggleClass('pressed')
-            lady_active = false
-            clearInterval(lady_t)
+            not_dude_active = false
+            clearInterval(not_dude_t)
           }
           dude_t = setInterval(tally_dude, 1000)
         }
@@ -120,17 +120,17 @@ title: Are men talking too much?
 
         $not_dude.toggleClass('pressed')
 
-        if(lady_active){
-          lady_active = false;
-          clearInterval(lady_t)
+        if(not_dude_active){
+          not_dude_active = false;
+          clearInterval(not_dude_t)
         } else {
-          lady_active = true;
+          not_dude_active = true;
           if(dude_active){
             $dude.toggleClass('pressed')
             dude_active = false
             clearInterval(dude_t)
           }
-          lady_t = setInterval(tally_lady, 1000)
+          not_dude_t = setInterval(tally_not_dude, 1000)
         }
       });
 
