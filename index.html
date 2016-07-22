@@ -133,6 +133,16 @@ title: Are men talking too much?
           not_dude_t = setInterval(tally_not_dude, 1000)
         }
       });
+	  
+      $('body').keydown(function(e) {
+        if(e.keyCode == 37) {// left
+          $dude.trigger('click');
+        }
+        else if(e.keyCode == 39) {//right
+          $not_dude.trigger('click');
+        }
+       });
+
 
     });
 
