@@ -40,23 +40,29 @@ title: Are men talking too much?
   </body>
 
   <script type="text/javascript">
-    $(document).ready(function() {
+    $(function() {
+      'use strict';
 
-      var dude_time = {
-        minutes: 0,
-        seconds: 0,
-        hours: 0
+      var dude = {
+        time: {
+          minutes: 0,
+          seconds: 0,
+          hours: 0
+        },
+        active: false
       };
 
-      var not_dude_time = {
-        minutes: 0,
-        seconds: 0,
-        hours: 0
+      var not_dude = {
+        time: {
+          minutes: 0,
+          seconds: 0,
+          hours: 0
+        },
+        active: false
       };
 
-      var dude_active = false;
-      var not_dude_active = false;
-      var dude_t, not_dude_t;
+      var dude_t;
+      var not_dude_t;
 
       var $ans = $('#ans');
       var $dude = $('#dude');
@@ -87,35 +93,29 @@ title: Are men talking too much?
           $(display_sel).html(num_pad(tally.minutes) + ':' + num_pad(tally.seconds));
         }
 
-        var d_tot = (dude_time.hours * 3600) + (dude_time.minutes * 60) + dude_time.seconds;
-        var l_tot = (not_dude_time.hours * 3600) + (not_dude_time.minutes * 60) + not_dude_time.seconds;
+        var d_tot = (dude.time.hours * 3600) + (dude.time.minutes * 60) + dude.time.seconds;
+        var l_tot = (not_dude.time.hours * 3600) + (not_dude.time.minutes * 60) + not_dude.time.seconds;
         var pct = parseInt(d_tot / (d_tot + l_tot) * 100, 10);
         $ans.html('<span id="pct">' + pct + '</span>% men');
-      }
-
-      function tally_dude() {
-        add(dude_time, '#dude-display');
-      }
-
-      function tally_not_dude() {
-        add(not_dude_time, '#not-dude-display');
       }
 
       $dude.click(function() {
 
         $dude.toggleClass('pressed');
 
-        if (dude_active) {
-          dude_active = false;
+        if (dude.active === true) {
+          dude.active = false;
           clearInterval(dude_t);
         } else {
-          dude_active = true;
-          if (not_dude_active) {
+          dude.active = true;
+          if (not_dude.active === true) {
             $not_dude.toggleClass('pressed');
-            not_dude_active = false;
+            not_dude.active = false;
             clearInterval(not_dude_t);
           }
-          dude_t = setInterval(tally_dude, 1000);
+          dude_t = setInterval(function() {
+            add(dude.time, '#dude-display');
+          }, 1000);
         }
 
       });
@@ -124,16 +124,19 @@ title: Are men talking too much?
 
         $not_dude.toggleClass('pressed');
 
-        if (not_dude_active) {
-          not_dude_active = false;
+        if (not_dude.active === true) {
+          not_dude.active = false;
+          clearInterval(not_dude_t);
         } else {
-          not_dude_active = true;
-          if (dude_active) {
+          not_dude.active = true;
+          if (dude.active === true) {
             $dude.toggleClass('pressed');
-            dude_active = false;
+            dude.active = false;
             clearInterval(dude_t);
           }
-          not_dude_t = setInterval(tally_not_dude, 1000);
+          not_dude_t = setInterval(function() {
+            add(not_dude.time, '#not-dude-display');
+          }, 1000);
         }
       });
 
