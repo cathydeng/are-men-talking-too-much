@@ -16,3 +16,10 @@ I'm exploiting the mantra of "what gets measured gets managed" - hopefully, meas
 
 ### Steal this code
 Gender is only one of many flavors of diversity. Time talking is a simplistic measure of participation. You're welcome to take this code, adapt it, & produce other hacks for inclusion. I wana see what you make - please do share! [@cthydng](https://twitter.com/cthydng/)
+
+### Links
+- http://www.papermag.com/are-men-talking-too-much-1956187037.html
+- http://www.bustle.com/articles/174638-are-men-speaking-too-much-website-by-cathy-deng-helps-make-conversations-more-equitable
+- http://fusion.net/story/328442/are-men-talking-too-much-mansplaining-clock/
+- http://nymag.com/thecut/2016/07/are-men-talking-too-much-cathy-deng.html
+- http://chicagoinno.streetwise.co/2016/07/22/this-tool-will-tell-you-if-your-meeting-is-gender-inclusive/
