@@ -63,9 +63,11 @@ a.muted-link, a.muted-link:active, a.muted-link:hover {
 .alert-ga {
 	background-color: #1d2951;
 	color: #d8e2dc;
+	border: 0px;
 }
 .alert-ga a, .alert-ga a:hover, .alert-ga a:visited, .alert-ga a:active{
 	color: #d8e2dc;
+	text-decoration: none;
 }
 .alert-ga a:hover {
 	text-decoration: underline;
@@ -73,4 +75,5 @@ a.muted-link, a.muted-link:active, a.muted-link:hover {
 }
 a.icon-link:hover {
 	text-decoration: none;
+	color: #fff;
 }
