@@ -56,3 +56,14 @@ a.muted-link, a.muted-link:active, a.muted-link:hover {
 	color: #BBC2BE;
 }
 
+
+.alert {
+	border-radius: 0px;
+}
+.alert-ga {
+	background-color: #1d2951;
+	color: #d8e2dc;
+}
+a.ga:hover{
+	text-decoration: none;
+}
